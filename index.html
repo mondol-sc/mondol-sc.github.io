@@ -21,27 +21,50 @@
       margin-right: auto;
       width: 50%;
     }
+    .column {
+      float: left;
+      width: 30%;
+      padding: 5px;
+    }
+    .row::after {
+      content: "";
+      clear: both;
+      display: table
+}
   </style>
 </head>
 <body>
 
   <h1>Sujan Chandra Mondol - Personal Page</h1>
 
+  <p>
+This page is created as part of an assignment for the course CE 514 - Geospatial Software Development in the semester, Winter 2025.
+  </p>
+
   <img src="sjn_photo.png" alt="Photo of Sujan Chandra Mondol" class="center"> 
 
   <p>
     Hello! My name is Sujan Chandra Mondol and I am an international graduate student at Brigham Young University Department of Civil and Construction Engineering. Moreover, I am working under Professor Dr. Dan Ames in BYU Hydroinformatics Lab as a graduate research assistant. 
   </p>
-  <p>
-This page is created as part of an assignment for the course CE 514: Geospatial Software Development in the semester Winter 2025.
-  </p>
+
+<div class="row">
+	<div class="column">
+		<img src="img_interest_1.jpeg" style="width:100%" class="center">
+	</div>
+	<div class="column">
+		<img src="https://www.shutterstock.com/shutterstock/photos/1833864460/display_1500/stock-photo-young-man-in-gray-warm-clothes-slowly-walking-through-alley-of-trees-in-yellow-autumn-day-at-park-1833864460.jpg" style="width:100%" class="center">
+	</div>
+	<div class="column">
+		<img src="https://media.istockphoto.com/id/1646443939/photo/sunny-cricket-moments.jpg?s=1024x1024&w=is&k=20&c=NEk5TsN2oPb_ipVmIiyPIPtbAqXFcg0UyHmiEzw2Zz4=" style="width:100%" class="center">
+	</div>
+</div>
 
   <h2>My Links</h2>
 
   <ul>
-    <li>Email: <a href="mailto:scm.mondol@gmail.com">scm.mondol@gmail.com</a></li>
-    <li>LinkedIn: <a href="https://linkedin.com/iamsujan">linkedin.com/iamsujan</a></li>
-    <li>GitHub: <a href="https://github.com.mondol-sc">github.com.mondol-sc</a></li>
+    <li>LinkedIn: <a href="https://linkedin.com/in/iamsujan">linkedin.com/in/iamsujan</a></li>
+    <li>GitHub: <a href="https://github.com/mondol-sc">github.com/mondol-sc</a></li>
+    <li>BYU Hydroinformatics Lab: <a href="https://hydroinformatics.byu.edu/">hydroinformatics.byu.edu/</a></li>
   </ul>
 
 </body>
