@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Leaflet Map - Sujan Chandra Mondol</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <link rel="stylesheet" href="leaflet.css">
+</head>
+
+<body>
+  <div class="header">
+    Leaflet Map of Bangladesh
+  </div>
+  <div id="map" style="width:1000px; height:625px;" class="center">
+    <script>
+       // Creating map options
+       var mapOptions = {
+          center: [23.746, 90.417],
+          zoom: 6.48
+       }
+
+       // Creating a map object
+       var map = new L.map('map', mapOptions);
+
+       // Creating a Layer object
+       var layer = new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }).addTo(map);
+       // Adding layer to the map
+       map.addLayer(layer);
+
+       var bangladesh_bounding_box = L.polygon([[26.5100000, 87.9100000], [26.5100000, 92.7500000], [20.3200000, 92.7500000], [20.3200000, 87.9100000]]).addTo(map);
+
+    </script>
+  </div>
+  <div class="footer">
+    Created by Sujan Chandra Mondol, 2025
+  </div>
+</body>
+</html>
