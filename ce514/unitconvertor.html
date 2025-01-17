@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <script src="unitconverter.js"></script>
+        <link rel="stylesheet" href="unitconverter.css">
+        <title> Unit Converter for Length</title>
+    </head>
+<body>
+<h1 class="header">
+Unit Converter for Length
+</h1>
+<div class="center">
+  <br>
+    <label class="label" for="inputValue">Input Value: </label> <br>
+    <input id="inputValue" type="number" required>
+    <br>
+    <label class="label" for="inputUnit">Input Unit: </label><br>
+    <select id="inputUnit" name="inputUnit">
+      <option value="Millimeters">Millimeters</option>
+      <option value="Centimeters">Centimeters</option>
+      <option value="Inches">Inches</option>
+      <option value="Feet">Feet</option>
+      <option value="Yards">Yards</option>
+      <option value="Meters">Meters</option>
+      <option value="Kilometers">Kilometers</option>
+      <option value="Miles" selected>Miles</option>
+    </select>
+    <br>
+    <label class="label" for="outputUnit">Output Unit: </label> <br>
+    <select id="outputUnit" name="outputUnit">
+      <option value="Millimeters">Millimeters</option>
+      <option value="Centimeters">Centimeters</option>
+      <option value="Inches">Inches</option>
+      <option value="Feet">Feet</option>
+      <option value="Yards" selected>Yards</option>
+      <option value="Meters">Meters</option>
+      <option value="Kilometers">Kilometers</option>
+      <option value="Miles">Miles</option>
+    </select> <br>
+    <button id="convertButton" onclick="unitConverter()"> CONVERT </button>
+    <br>
+    <div class="result"><span id="result"></span></div>
+</div>
+<br>
+<div class="footer"> Created by Sujan Chandra Mondol, 2025 </div>
+</body>
+</html>
