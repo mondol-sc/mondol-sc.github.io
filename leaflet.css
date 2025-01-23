@@ -1,7 +1,4 @@
 body {
-  --h: 212deg;
-  --l: 43%;
-  --brandColor: hsl(var(--h), 71%, var(--l));
   font-family: Roboto, sans-serif;
   margin: 0;
   background-color: #415A77;
