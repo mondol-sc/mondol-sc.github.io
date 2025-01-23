@@ -64,7 +64,7 @@ ol {
 
 li {
   --l: calc(100% - (var(--i) / var(--length))*100%);
-  --c1: hsl(168, 76%, var(--l));
+  --c: hsl(168, 76%, var(--l));
 
   position: relative;
   counter-increment: list;
@@ -85,17 +85,5 @@ li::before {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: var(--c1);
+  background-color: var(--c);
 }
-
-h3 {
-  display: flex;
-  align-items: baseline;
-  margin: 0 0 1rem;
-  color: rgb(70 70 70);
-}
-
-h3::before {
-  display: flex;
-  justify-content: center;
-  align-items:

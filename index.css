@@ -1,32 +1,71 @@
 body {
-  --h: 212deg;
-  --l: 43%;
-  --brandColor: hsl(var(--h), 71%, var(--l));
+  --sjnColor-h: 206;
+  --sjnColor-s: 100%;
+  --sjnColor-l: 34.9%;
+  --sjnColor: hsl(var(--sjnColor-h), var(--sjnColor-s), var(--sjnColor-l));
   font-family: Roboto, sans-serif;
+  font-size: 1.15rem;
   margin: 0;
-  background-color: #FAF9FC;
+  background-color: white;
 }
 
-.header {
-  background-color: #36454F;
-  padding: 10px;
-  color: #eafaf1;
+#header{
+  height: 50%;
+  color: hsl(var(--sjnColor-h), var(--sjnColor-s), calc(var(--sjnColor-l) + 60%));
+  background-color: var(--sjnColor);
   text-align: center;
-  font-size: 20px;
+  padding: 10px;
 }
 
-.footer {
-  color: #eafaf1;
-  background-color: #22223B;
-  padding: 10px;
+#header h1 {
+  font-size: 35px;
+  font-family: Impact, fantasy;
+}
+
+#nav-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: hsl(var(--sjnColor-h), var(--sjnColor-s), calc(var(--sjnColor-l) - 20%));
+}
+
+#nav-bar ul li {
+  float: left;
+}
+
+#nav-bar ul li a {
+  display: block;
   text-align: center;
+  padding: 15px 15px;
+  text-decoration: none;
+}
+
+a {
+  color: hsl(var(--sjnColor-h), var(--sjnColor-s), calc(var(--sjnColor-l) + 60%));
+}
+
+a:hover {
+  font-weight: bold;
+}
+
+#nav-bar ul li a:hover {
+  background-color: hsl(var(--sjnColor-h), var(--sjnColor-s), calc(var(--sjnColor-l) - 28%));
+}
+
+#wrapper {
+  margin: 0 auto;
+  width: 75%;
+  box-sizing: border-box;
+  background-color: hsl(var(--sjnColor-h), var(--sjnColor-s), calc(var(--sjnColor-l) + 60%));
+  text-align: center;
+  line-height: 1.5rem;
 }
 
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
 }
 
 .column {
@@ -41,11 +80,38 @@ body {
 }
 
 img {
-  max-width: 200px;
-  border-radius: 50%;
+  max-width: 250px;
+  border-radius: 25%;
   margin-bottom: 20px;
 }
 
-a{
-  color: #eafaf1;
+#footer {
+  color: hsl(var(--sjnColor-h), var(--sjnColor-s), calc(var(--sjnColor-l) + 60%));
+  background-color: var(--sjnColor);
+  padding: 10px;
+  text-align: center;
+  position:bottom;
 }
+
+#footer h3 {
+  font-size: 25px;
+  color: hsl(var(--sjnColor-h), var(--sjnColor-s), calc(var(--sjnColor-l) - 28%));
+}
+
+#v-nav-bar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#v-nav-bar ul li {
+  display: block;
+  text-align: center;
+  padding: 10px 5px;
+  margin: 5px;
+  text-decoration: none;
+  background-color: hsl(var(--sjnColor-h), var(--sjnColor-s), calc(var(--sjnColor-l) - 20%));
+}
+
+
