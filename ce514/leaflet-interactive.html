@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Interactive Page with Leaflet Open Source Mapping API - Sujan Chandra Mondol</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <link rel="stylesheet" href="leaflet-interactive.css">
+</head>
+
+<body>
+  <div class="header">
+    <h1>Interactive Page with Leaflet Open Source Mapping API</h1>
+  </div>
+  <div class="description">
+    <p class="centered-text"> 
+      Created by: Sujan Chandra Mondol <br/>
+      Course : CE 514 - Geospatial Software Development <br/>
+      Assignment number/name: A5 - Build an Interactive Page with Leaflet Open Source Mapping API <br/>
+      Date: 27 January, 2025 <br/>
+    </p>
+    <div class="table-container">
+      <table class="requirements">
+        <tr>
+          <th colspan="2">Requirements Met:</th>
+        </tr>
+        <tr>
+          <th style="width:50%"> Part 1 </td>
+          <th style="width:50%"> Part 2</td>
+        </tr>
+        <tr>
+          <td> 
+            <ul>
+              <li>A map zoomed to the hometown</li>
+              <li>Included point markers showing the house, school, religious place, and neighborhood market</li>
+              <li>Included a pop-up information bubble for each of the markers</li>
+              <li>Added a polygon showing the boundaries of the house property</li>
+              <li>Added a circle showing (roughly) the area with 10 minutes of walking distance from home</li>
+              <li>Used CSS to style the page and make it pretty</li>
+            </ul>
+          </td>
+          <td> 
+            <ul>
+              <li>A form added to take user inputs on coordinates of two locations on the Earth surface and showed them on leaflet map</li>
+              <li>The geographic distance between that two locations computed and shown using JavaScript</li>
+              <li>The corresponding great circle coordinates were computed and the great circle arcs were drawn on map</li>
+              <li>The leaflet map set to change interactively as per the user inputs</li>
+            </ul>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <div class="table-container">
+      <table>
+        <tr>
+          <th colspan="3"> FIND THE GREAT CIRCLE </th>
+        </tr>
+        <tr>
+          <td>Location 1:</td>
+          <td><input type="number" id="latitude1" name="latitude1" placeholder="Latitude 1" value="22.3752" required></td>
+          <td><input type="number" id="longitude1" name="longitude1" placeholder="Longitude 1" value="91.8349" required></td>
+        </tr>
+        <tr>
+          <td>Location 2:</td>
+          <td><input type="number" id="latitude2" name="latitude2" placeholder="Latitude 2" value="36.2048" required></td>
+          <td><input type="number" id="longitude2" name="longitude2" placeholder="Longitude 2" value="138.2529" required></td>
+        </tr>
+        <tr>
+          <td colspan="3"><button id="submit" onclick="mapper()">SUBMIT</button></td>
+        </tr>
+      </table>
+    </div>
+    <div id="forJS"></div>
+    <div id="map" class="center"></div>
+  <script type="text/javascript" src="leaflet-interactive.js"></script>
+
+  <div class="footer">
+    Created by Sujan Chandra Mondol, 2025
+  </div>
+</body>
+</html>
