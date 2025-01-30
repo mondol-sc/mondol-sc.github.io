@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Mapping of KML Files with Leaflet and Leaflet-KML Plugin</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet-kml/L.KML.js"></script>
+  <link rel="stylesheet" href="leaflet-kml.css">
+</head>
+
+<body>
+  <div class="header">
+    <h1>Mapping of KML Files with Leaflet and Leaflet-KML Plugin</h1>
+  </div>
+  <div class="description">
+    <p class="centered-text"> 
+      Created by: Sujan Chandra Mondol <br/>
+      Course : CE 514 - Geospatial Software Development <br/>
+      Assignment number/name: A6 - Use KML in Leaflet <br/>
+      Date: 30 January, 2025 <br/>
+    </p>
+    <div class="container">
+      <table class="requirements">
+        <tr>
+          <th>What's Been Done</th>
+        </tr>
+        <tr>
+          <td>This webpage use the leaflet-kml plugin on top of leaflet library to use the KML vector files for the mapping purpose. </td>
+        </tr>
+        <tr>
+          <td>First, the administrative boundary dataset of Bangladesh was downloaded in shapefile format from a online source.</td>
+        </tr>
+        <tr>
+          <td>Then, the preferred administrative boundaries were extracted using SELECT tool in ArcGIS. </td>
+        </tr>
+        <tr>
+          <td>After that, the chosen layers of administrative boundaries were converted to KML files using the Layer to KML tool in ArcGIS. </td>
+        </tr>
+        <tr>
+          <td>Later on, a javascript file was created with several functions to read KML files using the leaflet-kml plugin. </td>
+        </tr>
+        <tr>
+          <td>The mechanism is designed in such a way that the kml corresponding to whole Bangladesh is shown by default whereas clicking on a different option from menu bar will read the corresponding KML file and add the layer on map. </td>
+        </tr>
+        <tr>
+          <td>The layer also has the functionality to show a information bubble with the layer name and corresponding KML filename.</td>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
+
+  <div class="container">
+  <div class="tab">
+    <button class="tablinks" onclick="geographySelector(event, 'Bangladesh')">Bangladesh</button>
+    <button class="tablinks" onclick="geographySelector(event, 'DhakaDivision')">Dhaka Division</button>
+    <button class="tablinks" onclick="geographySelector(event, 'DhakaDistrict')">Dhaka District</button>
+    <button class="tablinks" onclick="geographySelector(event, 'TejgaonCircle')">Tejgaon Circle</button>
+  </div>
+</div>
+<div><br/></div>
+<div id="forJS"></div>
+<div id="map" class="center"></div>
+
+  
+  <script type="text/javascript" src="leaflet-kml.js"></script>
+
+
+<div>
+  <h3 class="centered-text">JavaScript Code Used</h3>
+      <code><pre>
+// Creating map options
+var mapOptions = {
+    center: [23.834012, 90.467032],
+    zoom: 7
+    }
+    // Creating a map object
+    var map = new L.map('map', mapOptions);
+    // Creating a Layer object
+    var layer = new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; &lt;a href="http://www.openstreetmap.org/copyright">OpenStreetMap&lt;/a>'
+            }).addTo(map);
+
+function kml_mapper(file, colorcode, infoBubble) {
+    // Load kml file
+    fetch(file)
+        .then(res => res.text())
+        .then(kmltext => {
+            // Create new kml overlay
+            const parser = new DOMParser();
+            const kml = parser.parseFromString(kmltext, 'text/xml');
+            const track = new L.KML(kml);
+            track.setStyle({color:colorcode});
+            map.addLayer(track).bindPopup(infoBubble);
+
+            // Adjust map to show the kml
+            const bounds = track.getBounds();
+            map.fitBounds(bounds);
+        });
+};
+kml_mapper('Bangladesh.kml', '#0eaf88');
+
+function geographySelector(evt, geographyName) {
+    // Declare all variables
+    const colors = {'Bangladesh': '#0eaf88', 'DhakaDivision': '#6413e2', 
+        'DhakaDistrict': '#ef3510', 'TejgaonCircle': 'yellow'};
+    const kml_files = {'Bangladesh': 'Bangladesh.kml', 'DhakaDivision': 'DhakaDivision.kml', 
+        'DhakaDistrict': 'DhakaDistrict.kml', 'TejgaonCircle': 'TejgaonCircle.kml'};
+    var infoBubble = geographyName + '; KML Filename: ' + kml_files[geographyName];
+    kml_mapper(kml_files[geographyName], colors[geographyName], infoBubble);
+    document.getElementById('forJS').innerHTML = ('&lt;p> Layer drawn for &lt;b>' + 
+        kml_files[geographyName] + '&lt;/b>&lt;/p>');
+  };
+</pre></code> </div>
+
+  <div class="footer">
+    Created by Sujan Chandra Mondol, 2025
+  </div>
+</body>
+</html>
