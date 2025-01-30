@@ -21,7 +21,7 @@ function kml_mapper(file, colorcode, infoBubble) {
             const kml = parser.parseFromString(kmltext, 'text/xml');
             const style_tag ='<styleUrl>#PolyStyle00</styleUrl>';
             if (style_tag in kml) {
-                kml = kml.replace("<styleUrl>#PolyStyle00</styleUrl>", "");
+                kml = kml.replace(style_tag, "");
             };
             const track = new L.KML(kml);
             track.setStyle({color:colorcode});

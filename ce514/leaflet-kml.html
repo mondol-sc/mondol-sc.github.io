@@ -80,7 +80,7 @@ var mapOptions = {
     // Creating a Layer object
     var layer = new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution: '&copy; &lt;a href="http://www.openstreetmap.org/copyright">OpenStreetMap&lt;/a>'
             }).addTo(map);
 
 function kml_mapper(file, colorcode, infoBubble) {
@@ -91,20 +91,21 @@ function kml_mapper(file, colorcode, infoBubble) {
             // Create new kml overlay
             const parser = new DOMParser();
             const kml = parser.parseFromString(kmltext, 'text/xml');
-            const style_tag ='<styleUrl>#PolyStyle00</styleUrl>';
+            const style_tag ='&lt;styleUrl>#PolyStyle00&lt;/styleUrl>';
             if (style_tag in kml) {
-                kml = kml.replace("<styleUrl>#PolyStyle00</styleUrl>", "");
+                kml = kml.replace(style_tag, "");
             };
             const track = new L.KML(kml);
             track.setStyle({color:colorcode});
-            map.addLayer(track).bindPopup(infoBubble);
+            track.bindPopup(infoBubble);
+            map.addLayer(track);
 
             // Adjust map to show the kml
             const bounds = track.getBounds();
             map.fitBounds(bounds);
         });
 };
-kml_mapper('Bangladesh.kml', '#0eaf88');
+kml_mapper('Bangladesh.kml', '#0eaf88', "Bangladesh; KML Filename: Bangladesh.kml");
 
 function geographySelector(evt, geographyName) {
     // Declare all variables
@@ -114,8 +115,8 @@ function geographySelector(evt, geographyName) {
         'DhakaDistrict': 'DhakaDistrict.kml', 'TejgaonCircle': 'TejgaonCircle.kml'};
     var infoBubble = geographyName + '; KML Filename: ' + kml_files[geographyName];
     kml_mapper(kml_files[geographyName], colors[geographyName], infoBubble);
-    document.getElementById('forJS').innerHTML = ('<p> Layer drawn for <b>' + 
-        kml_files[geographyName] + '</b></p>');
+    document.getElementById('forJS').innerHTML = ('&lt;p> Layer drawn for &lt;b>' + 
+        kml_files[geographyName] + '&lt;/b>&lt;/p>');
   };        
 </pre></code> </div>
 
