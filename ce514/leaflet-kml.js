@@ -43,8 +43,8 @@ function geographySelector(evt, geographyName) {
         'DhakaDistrict': 'DhakaDistrict.kml', 'TejgaonCircle': 'TejgaonCircle.kml'};
     var infoBubble = geographyName + '; KML Filename: ' + kml_files[geographyName];
     kml_mapper(kml_files[geographyName], colors[geographyName], infoBubble);
-    document.getElementById('forJS').innerHTML = ('<p> Layer drawn for <b>' + 
-        kml_files[geographyName] + '</b></p>');
+    document.getElementById('forJS').innerHTML = ('<p> Layer drawn for <a href="' + kml_files[geographyName] + '" target="_blank"><b>' + 
+        kml_files[geographyName] + '</a></b></p>');
   };
 
 

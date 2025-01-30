@@ -105,7 +105,7 @@ function kml_mapper(file, colorcode, infoBubble) {
             map.fitBounds(bounds);
         });
 };
-kml_mapper('Bangladesh.kml', '#0eaf88', "Bangladesh; KML Filename: Bangladesh.kml");
+kml_mapper('Bangladesh.kml', '#0eaf88');
 
 function geographySelector(evt, geographyName) {
     // Declare all variables
@@ -115,9 +115,11 @@ function geographySelector(evt, geographyName) {
         'DhakaDistrict': 'DhakaDistrict.kml', 'TejgaonCircle': 'TejgaonCircle.kml'};
     var infoBubble = geographyName + '; KML Filename: ' + kml_files[geographyName];
     kml_mapper(kml_files[geographyName], colors[geographyName], infoBubble);
-    document.getElementById('forJS').innerHTML = ('&lt;p> Layer drawn for &lt;b>' + 
-        kml_files[geographyName] + '&lt;/b>&lt;/p>');
-  };        
+    document.getElementById('forJS').innerHTML = ('&lt;p> Layer drawn for &lt;a href="' + 
+        kml_files[geographyName] + '" target="_blank"><b>' + 
+        kml_files[geographyName] + '&lt;/a>&lt;/b>&lt;/p>');
+  };
+                
 </pre></code> </div>
 
   <div class="footer">
