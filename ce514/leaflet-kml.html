@@ -80,7 +80,7 @@ var mapOptions = {
     // Creating a Layer object
     var layer = new L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
-            attribution: '&copy; &lt;a href="http://www.openstreetmap.org/copyright">OpenStreetMap&lt;/a>'
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
 
 function kml_mapper(file, colorcode, infoBubble) {
@@ -91,6 +91,10 @@ function kml_mapper(file, colorcode, infoBubble) {
             // Create new kml overlay
             const parser = new DOMParser();
             const kml = parser.parseFromString(kmltext, 'text/xml');
+            const style_tag ='<styleUrl>#PolyStyle00</styleUrl>';
+            if (style_tag in kml) {
+                kml = kml.replace("<styleUrl>#PolyStyle00</styleUrl>", "");
+            };
             const track = new L.KML(kml);
             track.setStyle({color:colorcode});
             map.addLayer(track).bindPopup(infoBubble);
@@ -110,9 +114,9 @@ function geographySelector(evt, geographyName) {
         'DhakaDistrict': 'DhakaDistrict.kml', 'TejgaonCircle': 'TejgaonCircle.kml'};
     var infoBubble = geographyName + '; KML Filename: ' + kml_files[geographyName];
     kml_mapper(kml_files[geographyName], colors[geographyName], infoBubble);
-    document.getElementById('forJS').innerHTML = ('&lt;p> Layer drawn for &lt;b>' + 
-        kml_files[geographyName] + '&lt;/b>&lt;/p>');
-  };
+    document.getElementById('forJS').innerHTML = ('<p> Layer drawn for <b>' + 
+        kml_files[geographyName] + '</b></p>');
+  };        
 </pre></code> </div>
 
   <div class="footer">

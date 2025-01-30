@@ -19,6 +19,10 @@ function kml_mapper(file, colorcode, infoBubble) {
             // Create new kml overlay
             const parser = new DOMParser();
             const kml = parser.parseFromString(kmltext, 'text/xml');
+            const style_tag ='<styleUrl>#PolyStyle00</styleUrl>';
+            if (style_tag in kml) {
+                kml = kml.replace("<styleUrl>#PolyStyle00</styleUrl>", "");
+            };
             const track = new L.KML(kml);
             track.setStyle({color:colorcode});
             map.addLayer(track).bindPopup(infoBubble);
