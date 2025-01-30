@@ -33,7 +33,7 @@ function kml_mapper(file, colorcode, infoBubble) {
             map.fitBounds(bounds);
         });
 };
-kml_mapper('Bangladesh.kml', '#0eaf88');
+kml_mapper('Bangladesh.kml', '#0eaf88', 'Bangladesh; KML Filename: Bangladesh.kml');
 
 function geographySelector(evt, geographyName) {
     // Declare all variables
