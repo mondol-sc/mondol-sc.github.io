@@ -25,7 +25,8 @@ function kml_mapper(file, colorcode, infoBubble) {
             };
             const track = new L.KML(kml);
             track.setStyle({color:colorcode});
-            map.addLayer(track).bindPopup(infoBubble);
+            track.bindPopup(infoBubble).openPopup();
+            map.addLayer(track);
 
             // Adjust map to show the kml
             const bounds = track.getBounds();
