@@ -40,7 +40,7 @@ kml_mapper('Bangladesh.kml', '#0eaf88', 'Bangladesh; KML Filename: Bangladesh.km
 function geographySelector(evt, geographyName) {
     // Declare all variables
     const colors = {'Bangladesh': '#0eaf88', 'Dhaka_Division': '#6413e2', 
-        'Dhaka_District': '#ef3510', 'Tejgaon_Circle': 'yellow', 'Balu_River': '5c6bc0', 'Khulna_University_of_Engineering_&_Technology': '388e3c'};
+        'Dhaka_District': '#ef3510', 'Tejgaon_Circle': 'yellow', 'Balu_River': '#FF0000', 'Khulna_University_of_Engineering_&_Technology': '#388e3c'};
     const kml_files = {'Bangladesh': 'Bangladesh.kml', 'Dhaka_Division': 'DhakaDivision.kml', 
         'Dhaka_District': 'DhakaDistrict.kml', 'Tejgaon_Circle': 'TejgaonCircle.kml', 'Balu_River': 'BaluRiver.kml', 'Khulna_University_of_Engineering_&_Technology': 'KUET.kml'};
     var infoBubble = geographyName + '; KML Filename: ' + kml_files[geographyName];
