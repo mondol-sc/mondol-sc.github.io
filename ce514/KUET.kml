@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="1L734NAsRC_waBXx4M9rOyEsPuMdZZ1_O">
+	<name>KUET</name>
+	<gx:CascadingStyle kml:id="__managed_style_0862EF647236053686F8">
+		<Style>
+			<IconStyle>
+				<scale>2.4</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=388e3c&amp;id=2377&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+				<color>ff58eeff</color>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>3</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1D257A5DCC36053686F7">
+		<Style>
+			<IconStyle>
+				<scale>2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=388e3c&amp;id=2377&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+				<color>ff58eeff</color>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>2</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_08EDF557FB36053686F7">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1D257A5DCC36053686F7</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_0862EF647236053686F8</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0FC5AAD9C0360535663C">
+		<name>Khulna University of Engineering &amp; Technology</name>
+		<LookAt>
+			<longitude>89.50235649998743</longitude>
+			<latitude>22.90055240003879</latitude>
+			<altitude>4.791054763742133</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>771.2724445384811</range>
+			<altitudeMode>absolute</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_08EDF557FB36053686F7</styleUrl>
+		<Point>
+			<coordinates>89.50235689603365,22.90055192447138,4.78783827484934</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

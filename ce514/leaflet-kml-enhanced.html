@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Enhanced Leaflet-KML page: Show dynamic Wiki and Process JSON and String in JS</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet-kml/L.KML.js"></script>
+  <link rel="stylesheet" href="leaflet-kml.css">
+</head>
+
+<body>
+  <div class="header">
+    <h1>Enhanced Leaflet-KML page: Show dynamic Wiki and Add more KML</h1>
+  </div>
+  <div class="description">
+    <p class="centered-text"> 
+      Created by: Sujan Chandra Mondol <br/>
+      Course : CE 514 - Geospatial Software Development <br/>
+      Assignment number/name: A7 - Enhance Leaflet-KML page <br/>
+      Date: 4 February, 2025 <br/>
+    </p>
+    <div class="container">
+      <table class="tableframe">
+        <tr>
+          <th>What's Been Done</th>
+        </tr>
+        <tr>
+          <td>Two more KML files has been added to be explored in the Leaflet map. </td>
+        </tr>
+        <tr>
+          <td>A dynamic wiki block has been added below the map relevant to the mapped layer.</td>
+        </tr>
+        <tr>
+          <td>The wiki block uses Wikipedia API in an attempt to get rid of the traditional iframe tag. </td>
+        </tr>
+        <tr>
+          <td>The API response is in JSON format and the development demonstrates dealing with JSON within JavaScript. </td>
+        </tr>
+        <tr>
+          <td>To keep the wiki concise, only the introduction paragraph is extracted. </td>
+        </tr>
+        <tr>
+          <td>Necessary processing of the text string is performed to make it clean. </td>
+        </tr>
+        <tr>
+          <td>All the features of the previous <a href="leaflet-kml.html" target="_blank">leaflet-kml</a> page is preserved.</td>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
+
+  <div class="container">
+  <div class="tab">
+    <button class="tablinks" onclick="geographySelector(event, 'Bangladesh')">Bangladesh</button>
+    <button class="tablinks" onclick="geographySelector(event, 'Dhaka_Division')">Dhaka Division</button>
+    <button class="tablinks" onclick="geographySelector(event, 'Dhaka_District')">Dhaka District</button>
+    <button class="tablinks" onclick="geographySelector(event, 'Tejgaon_Circle')">Tejgaon Circle</button>
+    <button class="tablinks" onclick="geographySelector(event, 'Balu_River')">Balu River</button>
+    <button class="tablinks" onclick="geographySelector(event, 'Khulna_University_of_Engineering_&_Technology')">KUET</button>
+  </div>
+</div>
+<div><br/></div>
+<div id="forJS"></div>
+<div id="map" class="center"></div>
+<div class="container">
+  <table class="tableframe" width="80%">
+    <tr>
+      <td><span id="wiki"></span><span id="wikiSource"></span></td>
+    </tr>
+  </table>
+</div>
+
+<script type="text/javascript" src="wikipedia-text-extraction.js"></script>
+  <script type="text/javascript" src="leaflet-kml-enhanced.js"></script>
+
+
+
+<div>
+  <h3 class="centered-text">JavaScript Code Used</h3>
+      <code><pre>
+        async function extractWikipediaText(articleTitle) {
+          try {
+              // Build the API access URL for the Wikipedia 
+              // // the origin parameter enable CORS and avoid corresponding error
+              const accessURL = `https://en.wikipedia.org/w/api.php?action=query&titles=${
+                encodeURIComponent(articleTitle)}&prop=extracts&format=json&origin=*`; 
+              
+              // Fetch the data response from the Wikipedia API
+              const response = await fetch(accessURL);
+              if (!response.ok) {
+              throw new Error(`HTTP error status: ${response.status}`);
+              };
+      
+              // Obtain the json data from the fetched response
+              const json_data = await response.json();
+      
+              // Extract the pages in the json data
+              const pages = json_data.query.pages;
+              if (!pages) {
+              throw new Error(`No page found for title: ${articleTitle}`);
+              };
+      
+              // Get the page ID of the first page and the corresponding content
+              const pageId = Object.keys(pages)[0];      
+              const content = pages[pageId].extract;
+              if (!content) {
+                  throw new Error("No content found for this page.");
+              };
+      
+              // Limit the text content within the first paragraph only
+              const firstParagraph = content.split('&lt;h2')[0].trim();
+      
+      
+              // Process the text content to bring into a cleaned format
+              const cleanedText = cleanExtractedText(firstParagraph); 
+              return cleanedText;
+          }
+              // Show the error in the console and HTML if the trial fails
+              catch (error) {
+              const errorText = ("Sorry! We are not being able to show you the wiki" + 
+                "since the API request wasn't successful: " + error)
+              console.error(errorText);
+              return errorText;
+          };
+          };
+        
+      
+      
+        function cleanExtractedText(textContent) {
+            // Remove HTML tags using regular expression
+            let cleanText = textContent.replace(/&lt;[^>]*>/g, "");
+      
+            // Corresponding characters for common HTML character entities
+            const entities = {
+              '&amp;nbsp;': ' ',
+              '&amp;amp;': '&',
+              '&amp;lt;': '&lt;',
+              '&amp;gt;': '>',
+              '&amp;quot;': '"',
+              '&amp;#039;': "'",
+              '&amp;#39;': "'"
+            };
+        
+            // Convert HTML character entities 
+            cleanText = cleanText.replace(/&[a-z]+;|&#\d+;/g, match => entities[match] || match);  
+            return cleanText;
+        }
+        
+       async function displayWikipediaText(title) {
+          const text = await extractWikipediaText(title);
+          if (text) {
+            // Display the text with the HTML
+            const outputElement = document.getElementById("wiki"); 
+            if (outputElement) {
+              outputElement.textContent = text; 
+              if (!text.includes('Error')) {
+                  const sourceURL = 'https://en.wikipedia.org/wiki/' + title;
+                  document.getElementById("wikiSource").innerHTML = (`&lt;p>Source:`+ 
+                  `&lt;a href="${sourceURL}" target="_blank">Wikipedia&lt;/a>&lt;/p>`);
+              }
+              
+            } else {
+                console.log(text); 
+            }
+          }
+        }
+        
+        // Default call
+      displayWikipediaText("Bangladesh"); 
+                
+</pre></code> </div>
+
+  <div class="footer">
+    Created by Sujan Chandra Mondol, 2025
+  </div>
+</body>
+</html>

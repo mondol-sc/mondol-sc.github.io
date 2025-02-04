@@ -47,7 +47,7 @@ td,th {
   padding: 8px;
 }
 
-.requirements {
+.tableframe {
   border-style: dotted;
 }
 
@@ -114,6 +114,7 @@ pre {
   padding: 0 3px;
   margin-left: 10%;
   margin-right: 10%;
+  overflow-wrap: break-word;
 }
 
 
