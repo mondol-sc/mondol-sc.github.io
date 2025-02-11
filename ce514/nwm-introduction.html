@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title> NWM Introduction </title>
+<script src=https://cdn.jsdelivr.net/npm/chart.js></script>
+<script src="nwm-introduction.js"></script>
+<link rel="stylesheet" href="nwm-introduction.css">
+</head>
+
+<body>
+    <div class="header"><a name="toplink"><h1>A8 - Retrieve and plot data from the US National Water Model</h1></a></div>
+    <div class="subheader"><span class="highlighter">Course : CE 514 - Geospatial Software Development</span> <br/>Assignment 8 - Retrieve and plot data from the US National Water Model <br/> Created by: Sujan Chandra Mondol <br/> On February 11, 2025</div>
+    <div class="container center">
+      <p class="text-container">The <span class="highlighter">National Water Model (NWM)</span> is a hydrologic modelling framework by National Oceanic and Atmospheric Administration that provides simulation of both the observed and forecasted streamflow and other hydrologic variables for about 2.7 million stream reaches over the entire continental United States (CONUS), southern Alaska, Hawaii, Puerto Rico, and the US Virgin Islands. It is designed around the Weather Research and Forecasting Hydrologic model (WRF-Hydro) and take leverage of datasets like Multi-Radar/Muti-Sensor System (MRMS) and Stage IV Multisensor Precipitation Estimator (MPE) radar-gauge observed precipitation data, and High Resolution Rapid Refresh (HRRR), Rapid Refresh (RAP), North American Mesoscale Nest (NAM-Nest), Global Forecasting System (GFS) and Climate Forecast System (CFS) Numerical Weather Prediction (NWP) forecast data.</p>
+      <p class="text-container"> The model is run on NOAA's Weather and Climate Operational Supercomputing System (WCOSS) for its several <span class="highlighter">configurations:</span>
+        <ol>
+          <li>CONUS Analysis and Assimilation simulation </li> 
+          <li>CONUS Short-Range 18 h deterministic forecast</li>
+          <li>CONUS Medium-Range 10 day ensemble forecast</li>
+          <li>CONUS Long-Range 30 day ensemble forecast</li>
+          <li>Hawaii and Puerto Rico/USVI Analysis and Assimilation current snapshot</li>
+          <li>Hawaii and Puerto Rico/USVI 48 h short range forecast</li>
+        </ol>
+      </p>
+      <p class="text-container">
+        <table id="nwm-configurations" width="100%">
+          <tr>
+            <th>Configuration Name</th>
+            <th>Simulation Length</th>
+            <th>Cycling Frequency</th>
+            <th>Additional Information</th>
+          </tr>
+          <tr>
+            <td>CONUS Extended Analysis and Assimilation</td>
+            <td>28 hours lookback</td>
+            <td>1 time in a day</td>
+            <td>features data assimilation</td>
+          </tr>
+          <tr>
+            <td>CONUS Standard Analysis and Assimilation</td>
+            <td>3 hours lookback</td>
+            <td>24 times in a day</td>
+            <td>features data assimilation</td>
+          </tr>
+          <tr>
+            <td>CONUS Short Range Forecast</td>
+            <td>18 hours forecast</td>
+            <td>24 times in a day</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>CONUS Medium Range Forecast</td>
+            <td>240 hours forecast</td>
+            <td>4 times in a day</td>
+            <td>7 ensemble members</td>
+          </tr>
+          <tr>
+            <td>CONUS Long Range Forecast</td>
+            <td>30 days forecast</td>
+            <td>4 times in a day</td>
+            <td>4 ensemble members</td>
+          </tr>
+          <tr>
+            <td>Hawaii Analysis and Assimilation</td>
+            <td>3 hours lookback</td>
+            <td>24 times in a day</td>
+            <td>features data assimilation</td>
+          </tr>
+          <tr>
+            <td>Hawaii Short Range Forecast</td>
+            <td>48 hours forecast</td>
+            <td>2 times in a day</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>PR/USVI Analysis and Assimilation</td>
+            <td>3 hours lookback</td>
+            <td>24 times in a day</td>
+            <td>features data assimilation</td>
+          </tr>
+          <tr>
+            <td>PR/USVI Short Range Forecast</td>
+            <td>48 hours forecast</td>
+            <td>2 times in a day</td>
+            <td>-</td>
+          </tr>
+        </table>
+      </p>
+      <p class="text-container">
+        <label>General Information on the NWM:</label><br/>
+        <a href="https://water.noaa.gov/about/nwm" target="_blank"></a><button>Description about the NWM provided by NOAA</button>
+      </p>
+      <p class="text-container">
+        <label>Technical Insights on the NWM:</label>
+        <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/1752-1688.13184" target="_blank"></a><button>Cosgrove, Brian, et al. "NOAA's National Water Model: Advancing operational hydrology through continental‐scale modeling." JAWRA Journal of the American Water Resources Association 60.2 (2024): 247-272.</button>
+      </p>
+      <p class="text-container">
+        An <span class="highlighter">Application Programming Interface (API) </span></b> is a set of rules that enables applications to connect with each other for sharing data or features. Thus, it has become a useful conecpt in the context of water data accession and been implemented in several ways for the NWM also.
+      </p>
+      <p class="text-container"> One of the recent developments of <a class="highlighter" href="https://nwm-api.ciroh.org/docs" target="_blank">NWM API</a> is deployed by CIROH that starts with creating a public dataset in Google Bigquery for the NWM streamflow data products. Based on various Google cloud products such as Cloud Run, Bigquery, and API Gateway, this approach deployed a representational state transfer (REST) architecture API for the streamflow forecast. The API enable the users to obatain the output dataset in tabular or structured format instead of the original format of timestamp snapshot of the whole spatial domain in the netCDF file. The API comes with three endpoints dedicated for three different data configuration:
+        <ol>
+          <li>geometry</li>
+          <li>analysis-assim</li>
+          <li>forecast</li>
+        </ol>
+        Moreoever, the API parameters are specific to the particular endpoint and this provides minute control to the user over the range and type of data. The documentation page that comes with the API provides the user all necessary information to use the API without any difficulties.</p>
+        <p class="text-container">
+          <label>Technical Insights on CIROH NWM API:</label>
+          <a href="https://www.sciencedirect.com/science/article/pii/S1364815224001841" target="_blank"></a><button>Markert, Kel N., et al. "Design and Implementation of a Big Query Dataset and Application Programmer Interface (API) for the US National Water Model." Environmental Modelling & Software (2024): 106123.</button>
+        </p>
+      </div>
+
+    <div class="form center dashed">
+      <p class="text-container"><h2> <a name="formlink">Try Accessing NWM Forecast Data through API</a></h2></p>
+        <label class="label" for "reachID">Enter a Reach ID: </label>
+        <input id="reachID" type="number" placeholder="Example: 23021904" required>
+        <button id="submit-reach-id" onclick="NWMResultsExtractor()"> Submit </button>
+        <br/>
+    </div>
+
+    <div class="data-results center">
+        <table id="timeseries-datatable" style="display: none">
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Streamflow (ft³/s)</th>
+                <th class="chart">Timeseries Graph for Streamflow Forecast (18 hours ahead)</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>          
+    </div>
+    <div>
+      <h2 style="text-align: center;">How it works?</h2>
+        <table>
+          <tr>
+            <th>Piece of Code</th>
+            <th>Explanation</th>
+          </tr> 
+          <tr>
+            <td> <pre><code>function NWMResultsExtractor() {</code></pre></td>
+              <td>Create a function in JavaScript that access the NWM API and extract results</td>
+          </tr>
+          <tr>
+            <td> <pre><code>
+  const reachID = parseInt(document.getElementById("reachID").value);</code></pre></td>
+              <td>Obtain the reach ID as a constant from the input field in HTML</td>
+          </tr>
+          <tr>
+            <td> <pre><code>
+  const accessURL = `https://api.water.noaa.gov/nwps/v1/reaches/${reachID}/streamflow?series=short_range`;</code></pre></td>
+              <td>Populate the API access URL using the reach ID and store it as a constant</td>
+          </tr>
+          <tr>
+            <td> <pre><code>
+    fetch(accessURL).then(response => {</code></pre></td>
+              <td>Use the fetch function to access the API and indicate to store the response in a variable 'response'</td>
+          </tr>
+          <tr>
+            <td> <pre><code>
+      if (!response.ok) {
+        throw new Error(`An HTTP error has been encountered. Error status: ${response.status}`);
+      };</code></pre></td>
+              <td>If the response is returned with any error, throw that error messgae</td>
+          </tr>
+          <tr>
+            <td> <pre><code>
+      return response.json();
+    })
+    .then(json_data => {</code></pre></td>
+              <td>Process the response as JSON and store in the variable 'json_data'</td>
+          </tr>
+          <tr>
+            <td> <pre><code>
+      const streamflowData = json_data.shortRange.series.data;
+      const timestamps = streamflowData.map(item => item.validTime);
+      const flowValues = streamflowData.map(item => item.flow);</code></pre></td>
+              <td>Extract the streamflow data as streamflowData and create timestamps and flowValues data series from that</td>
+          </tr>
+          <tr>
+            <td> <pre><code>      const tableElementCatcher = document.getElementById('timeseries-datatable');</code></pre></td>
+              <td>Grab the HTML element inside which dataresults to be shown</td>
+          </tr>
+          <tr>
+            <td> <pre><code>      tableElementCatcher.style.display = 'block';</code></pre></td>
+              <td>Show the results element that is otherwise not displayed by default</td>
+          </tr>
+          <tr>
+            <td> <pre><code>      const table = tableElementCatcher.getElementsByTagName('tbody')[0];</code></pre></td>
+              <td>Grab the table element to enable writing table contents from within JS</td>
+          </tr>
+          <tr>
+            <td> <pre><code>      const maxLength = Math.max(timestamps.length, flowValues.length);</code></pre></td>
+              <td>Identify the maximum value between the lengths of timestamp and flowValues series to use in a for loop later</td>
+          </tr>
+          <tr>
+            <td> <pre><code>      for (let i = 0; i < maxLength; i++) {</code></pre></td>
+              <td>Run a for loop to go over each timeseries data point</td>
+          </tr>
+          <tr>
+            <td> <pre><code>    
+        const row = table.insertRow();
+        const timestampCell = row.insertCell();
+        const flowCell = row.insertCell();
+            </code></pre></td>
+              <td>For each of the flowValues, create a row in the timeseries-datatable and create two cells, one for timestamp and another for flow value</td>
+          </tr>
+          <tr>
+            <td> <pre><code>    
+        if (i==0) {
+          const chart = row.insertCell();
+          chart.innerHTML = '&lt;canvas id="streamflowChart">&lt;/canvas>';
+          chart.rowSpan = '18';
+          chart.columnWidth = '900px';
+        }
+            </code></pre></td>
+              <td>In the very first iteration, create a placeholder for the timeseries graph in a table cell and spans it along all rows in the table</td>
+          </tr>
+          <tr>
+            <td> <pre><code>    
+        timestampCell.textContent = timestamps[i] || ""; 
+        flowCell.textContent = flowValues[i] || ""; 
+      };
+            </code></pre></td>
+              <td>Populate the created cells for timestamp and flow with actual values from the corresponding data series and end the for loop</td>
+          </tr>
+          <tr>
+            <td> <pre><code>    
+      const chartElementCatcher = document.getElementById('streamflowChart');
+      const ctx = chartElementCatcher.getContext('2d');
+            </code></pre></td>
+              <td>Grab the element in which the timeseries graph is to be shown and create a chart for that element with the Chart.js library</td>
+          </tr>
+                      <td> <pre><code>    
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: timestamps,
+            datasets: [{
+                label: 'Streamflow Forecast (Short Range)',
+                data: flowValues,
+                borderColor: 'teal',
+                borderWidth: 1,
+                fill: false}]
+            },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Time'}
+                    },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: 'Streamflow (cfs)'}    
+                    } 
+                }
+            }
+        });
+    }
+            </code></pre></td>
+              <td>Assign the chart elements and attributes as per the convention of Chart.js open source library</td>
+          </tr>
+          <tr>
+            <td> <pre><code>    
+      ).catch(error => {
+        console.error('Error fetching or processing data:', error);
+        const chartCanvas = document.getElementById('streamflowChart');
+        chartCanvas.innerHTML = "&lt;p>Error loading chart&lt;/p>";
+      });
+            </code></pre></td>
+              <td>If any error is encountered following the fetch function up to this line of code, show the corresponding error message</td>
+          </tr>
+          <tr>
+            <td><pre><code>}</code></pre></td>
+            <td>Close the function body</td>
+          </tr>
+        </table>
+    </div>
+    <div class="form center">
+      <table>
+        <tr>
+          <td><a href="#toplink"><button>Go to the Top of the page</button></a></td>
+          <td><a href="#formlink"><button>Go to the ReachID form</button></a></td>
+          <td><a href="/ce514/"><button>CE 514 Course Page</button></a></td>
+        </tr>
+      </table>
+    </div>
+    <div class="footer">
+      Created by Sujan Chandra Mondol, 2025
+    </div>
+</body>
+
+</html>
