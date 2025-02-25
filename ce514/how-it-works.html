@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>How it works - Streamflow Forecasting App</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="nwm-forecast-app.css">
+       </head>
+    <body>
+      <div class="header">
+        <h1>How the Streamflow Forecasting App Works?</h1>
+      </div>
+        <div class="sidebar">
+            <a href="https://mondol-sc.github.io/ce514/" target="_blank"><i class="fa fa-home"></i> CE 514 Homepage</a>
+            <a href="nwm-forecast-app.html">Go to the Forecast App</a>
+            <a href="https://mondol-sc.github.io/index.html" target="_blank">About the Developer</a>
+        </div>
+          
+        <div class="mainframe">
+               
+          <div id="resultHeader">Key Aspects of the Streamflow Forecast App</div>
+          <div class="subheader"><b>1. Interactive Reach Selection and Data Retrieval</b></div>
+<div class="paragraph"> The application provides multiple ways for users to select river reaches:
+  <ul>
+<li>Clicking on a reach polygon on the map triggers a popup that enables the retrieval of forecast data for that specific reach using a button.</li>
+<li>Dropdown menus on the left sidebar allow users to select reaches from a list in a convenient way.</li>
+<li>The user has the options to select a forecasting window from multiple options short-range, medium-range, or long-range without even clicking the submit button.</li>
+<li>When a reach is selected, the application makes a request to the NOAA Water Prediction Service API to retrieve streamflow forecast data. The user is not required to know what parameters are required since required ones are pre-specified.</li>
+<li>The API request includes parameters to specify the reach ID and forecast type (short-range, medium-range, or long-range).</li>
+</ul></div>
+
+<div class="subheader"><b>2. Data Processing and Visualization</b></div>
+<div class="paragraph"> <ul><li>The retrieved forecast data is processed to extract timestamps and streamflow values. The data is then displayed in two formats:</li>
+  <ol>
+    <li>A tabular format, showing the timestamps and corresponding streamflow values.</li>
+    <li>A line chart, generated using Chart.js, visualizing the streamflow data over time. The chart includes:
+      <ul>
+        <li>Mean streamflow values,</li>
+        <li>Ensemble member streamflow values (for long-range forecasts),</li>
+        <li>Horizontal lines representing flood return periods (e.g., 2-year, 10-year floods) if falls within around half the streamflow range, and</li>
+        <li>A horizontal line representing the drought threshold if falls around half the streamflow range. The drought threshold values were computed for each of the nine reaches through offline analysis using the 80th-percentile method suggested in: <a href="https://hess.copernicus.org/articles/25/3991/2021/#section2" target="_blank">Sutanto, Samuel J., and Henny AJ Van Lanen. "Streamflow drought: implication of drought definitions and its application for drought forecasting." Hydrology and Earth System Sciences 25.7 (2021): 3991-4023.</a></li>
+      </ul>
+    </li>
+    </ol>
+    <li>The chart and table are dynamically updated based on the selected reach and forecast type.    </li>
+    <li>The application fetches reach specific data from a json file stored on Hydroshare. This data includes the return period flood levels, and the drought threshold.    </li>
+  </ul>
+</div>
+
+<div class="subheader"><b>3. Flood and Drought Assessment</b></div>
+<div class="paragraph"> 
+  <ul>
+    <li>The application compares the forecasted streamflow values with predefined flood return periods and drought thresholds.</li>
+    <li>Based on this comparison, it determines whether flood or drought conditions are present.</li>
+    <li>The application displays messages to inform users of the current conditions:
+      <ol>
+        <li>"Flood Condition Prevails" if the forecasted streamflow exceeds a flood return period.</li>
+        <li>"Drought Condition Prevails" if the forecasted streamflow falls below the drought threshold.</li>
+        <li>"Safe and Sound Condition" if neither flood nor drought conditions are present.</li>
+      </ol>
+       </li>
+  </ul>
+</div>
+
+
+<div class="subheader"><b>4. Map Initialization and Layer Management</b></div>
+<div class="paragraph"> 
+  <ul>
+    <li>The application starts by initializing a Leaflet map object, setting the center coordinates and zoom level to focus in such a manner that the view covers all nine reaches.</li>
+    <li>It adds an OpenStreetMap tile layer for the base map, providing a familiar geographic context.</li>
+    <li>A Web Map Service (WMS) layer from a HydroShare GeoServer is used to display state boundaries. This layer allows for dynamic rendering of geographic data.</li>
+    <li>The user can toggle the state polygon layer on and off enabling the user to match geometry with the basemap</li>
+    <li>The application dynamically changes the map view to focus on the selected reach.</li>
+    <li>The user can change the state polygon layer to different states just by clicking on the state name from the sidebar.</li>
+  </ul>
+</div>
+
+
+<div class="subheader"><b>5. User Interface and Interactivity</b></div>
+<div class="paragraph"> 
+  <ul>
+    <li>The application features a user-friendly interface with dropdown menus, buttons, and informational displays.</li>
+    <li>Dropdown menus allow users to select forecast types and river reaches.</li>
+    <li>Buttons trigger data retrieval and display.</li>
+    <li>Informational displays provide feedback on the current conditions and forecast data.</li>
+    <li>The application dynamically changes the map view to focus on the selected reach.</li>
+    <li>The application displays error messages if data retrieval fails.</li>
+    <li>The application uses javascript to manipulate the DOM, and to control the visibility of various HTML elements.</li>
+    <li>The application uses event listeners to respond to user interactions.</li>
+  </ul>
+</div>
+
+<div class="subheader"><b>6. Data Sources and Technologies</b></div>
+<div class="paragraph"> 
+  <ul>
+    <li>NOAA Water Prediction Service API: Provides real-time streamflow forecast data. (<a href="https://mondol-sc.github.io/ce514/nwm-introduction.html" target="_blank">Learn more about NWM</a>)</li>
+    <li>HydroShare GeoServer: Hosts hydrogeographic data, including state boundary polygons as shapefiles, river reach geometries as GeoJSON, and reach specific information as JSON files.</li>
+    <li>Leaflet.js library: Used for map display and interaction.</li>
+    <li>Chart.js library: Used for generating line charts.</li>
+    <li>JavaScript: Used for application logic, workflow, and data processing.</li>
+    <li>HTML and CSS: Used for the user interface.</li>
+  </ul>
+</div>
+<br>
+<div id="resultHeader">Created JavaScript Functions</div>
+<div class="subheader"><b>manageDropdowns() </b></div>
+<div class="subheader"><b>NWMResultsExtractor(reachID, forecastType)</b></div>
+<div class="subheader"><b>extractForecastOnClick (element, reachID) </b></div>
+<div class="subheader"><b>extractForecastOnChange (forecastType)</b></div>
+<div class="subheader"><b>loadGeoJsonDefault(reach)</b></div>
+<div class="subheader"><b>loadGeoJsonOnClick(filePath) </b></div>
+<div class="subheader"><b>removeAnchorStyles(outerDivId) </b></div>
+<div class="subheader"><b>bglayerMapper(stateName) </b></div>
+<div class="subheader"><b>toggleBGLayer() </b></div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        
+        </div>
+        <script src="nwm-forecast-app.js"></script>
+    </body>
+    
+</html>

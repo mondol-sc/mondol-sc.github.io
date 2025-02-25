@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title>Sujan's Streamflow Forecasting App</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="nwm-forecast-app.css">
+        <script src=https://cdn.jsdelivr.net/npm/chart.js></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script> 
+      </head>
+    <body>
+      <div class="header">
+        <h1>Streamflow Drought and Flood Forecasting Web Application</h1>
+      </div>
+        <div class="sidebar">
+            <a href="https://mondol-sc.github.io/ce514/" target="_blank"><i class="fa fa-home"></i> CE 514 Homepage</a>
+            <div class="dropdown active" id="dropdown1">
+            <button class="dropdown-button" onclick="bglayerMapper('utah_state')">Utah State
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-container" style="display:block">
+              <a onclick="extractForecastOnClick(this, '4931276')">Green River (WY-UT-CO)</a>
+              <a onclick="extractForecastOnClick(this, '1374334')">Green River at Jensen</a>
+              <a onclick="extractForecastOnClick(this, '4605050')">Bear River near Corinne</a>
+            </div>
+            </div>
+            <div class="dropdown" id="dropdown2">
+            <button class="dropdown-button" onclick="bglayerMapper('idaho_state')">Idaho State
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a onclick="extractForecastOnClick(this, '24558339')">Snake River at Blackfoot</a>
+                <a onclick="extractForecastOnClick(this, '23503542')">Salmon River at Salmon</a>
+                <a onclick="extractForecastOnClick(this, '24166358')">Payette River at Emmett</a>
+              </div>
+            </div>
+            <div class="dropdown" id="dropdown3">
+              <button class="dropdown-button" onclick="bglayerMapper('colorado_state')">Colorado State 
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-container">
+                <a onclick="extractForecastOnClick(this, '3232569')">Gunnison River near Grand Junction</a>
+                <a onclick="extractForecastOnClick(this, '1236065')">Colorado River near Dotsero</a>
+                <a onclick="extractForecastOnClick(this, '3111399')">Yampa River near Deerlodge Park</a>
+              </div>
+            </div>
+            <a href="how-it-works.html">How it works?</a>
+            <a href="https://mondol-sc.github.io/index.html" target="_blank">About the Developer</a>
+        </div>
+          
+        <div class="mainframe">
+          <div class="subheader">Facilitated with National Water Model, Leaflet JS, Hydroshare, etc.</div>
+            <div class="select-container">
+                <label for="forecastType">Select a Forecast Type</label>
+                <br/>
+                <select id="forecastSelector" onChange="extractForecastOnChange(this.value)">
+                    <option value="short_range" default>Short Range Forecast</option>
+                    <option value="medium_range">Medium Range Forecast</option>
+                    <option value="long_range">Long Range Forecast</option>
+                </select>
+            </div> 
+            <div id="map" class="center"></div>
+            <div id="checkbox"><input type="checkbox" id="bgLayerToggle" onclick="toggleBGLayer()" checked><label for="bgLayerToggle"> Toggle the background (state) layer</label></div>
+            <div class="data-results center">
+              <h2 id="resultHeader"></h2> 
+              <div>
+                <canvas id="mainGraph" height="250px"></canvas> 
+              </div>
+              <div id="floodCondition"></div>
+              <div id="droughtCondition"></div>
+              <div id="safeCondition"></div>
+              <div id="return_period_table"></div> <br>
+              <div class="table-container">
+                <table id="timeseries-datatable" style="display: none">
+                  <thead id = "thRow">
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table> 
+                
+              </div>
+                <span id="IamError"><p style='font-weight: bold, font-size: 30px, font-color: red'> Sorry, the data retrieval or processing was NOT successful. Try again later or with a different reach. </p></span>    
+            </div>
+            
+
+        </div>
+        <script src="nwm-forecast-app.js"></script>
+    </body>
+    
+</html>
